@@ -31,3 +31,10 @@ Red Alert is a notification system designed to keep users informed about critica
 -   Create your .env files in both frontend and backend
 -   Inside your .env write the jwt secret and also the mongodb atlas url
 -   run the frontend and backend using npm run dev
+
+## Contributors of the Project
+
+-   [https://github.com/HarshSharma20503](Harsh Sharma)
+-   [https://github.com/skywalker290](Ayush Gupta)
+-   [https://github.com/NandiniAgrawal15](Nandini Agrawal)
+-   [https://github.com/SakshamSahgal](Saksham Sahgal)
