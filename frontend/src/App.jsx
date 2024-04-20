@@ -5,11 +5,13 @@ import SignUp from "./Pages/Auth/SignUp";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoutes from "./Util/PrivateRoutes";
+import Navbar from "./Components/Navbar/Navbar";
 
 const App = () => {
   return (
     <>
       <ToastContainer />
+      <Navbar />
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />

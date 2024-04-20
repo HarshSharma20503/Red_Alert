@@ -34,7 +34,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="container h-100 d-flex justify-content-center align-content-center">
+      <div className="container h-75 d-flex justify-content-center align-content-center">
         <form className="d-flex flex-column justify-content-center align-content-center">
           <h3 className="text-white w-100 text-center">Sign In</h3>
           <div className="mb-3">
