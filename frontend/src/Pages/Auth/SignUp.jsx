@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ const SignUp = () => {
     try {
       const { data } = await axios.post("/api/auth/signUp", formData);
       console.log(data);
+      toast.success("Verify Your Email and than proceed to login");
     } catch (err) {
       console.log(err);
     }

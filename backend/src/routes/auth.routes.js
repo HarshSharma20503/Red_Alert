@@ -4,7 +4,7 @@ import { registerUser, loginUser, confirmEmail } from "../controllers/auth.contr
 const router = Router();
 
 router.route("/signUp").post(registerUser);
-router.route("/confirmEmail/:id").post(confirmEmail);
+router.route("/confirmEmail/:id").get(confirmEmail);
 router.route("/login").post(loginUser);
 
 export default router;

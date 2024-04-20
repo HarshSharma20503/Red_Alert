@@ -6,7 +6,10 @@ import { UnverifiedUser } from "../models/unverifiedUser.model.js";
 import { generateJWTToken } from "../utils/GenerateJWT.js";
 import { sendConfirmationMail } from "../utils/SendMail.js";
 
-// /auth/signUp
+/* 
+/api/auth/signUp
+Post Request
+*/
 const registerUser = asyncHandler(async (req, res) => {
   console.log("******** registerUser Function ********");
   // console.log("Request Body", req.body);
@@ -57,6 +60,10 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 });
 
+/*
+/api/auth/confirmEmail
+Get Request
+*/
 const confirmEmail = asyncHandler(async (req, res) => {
   console.log("******** confirmEmail Function ********");
   const { id } = req.params;
@@ -84,6 +91,10 @@ const confirmEmail = asyncHandler(async (req, res) => {
   return res.status(200).send("Email confirmed. You can now login");
 });
 
+/*
+/api/auth/login
+Post Request
+*/
 const loginUser = asyncHandler(async (req, res) => {
   console.log("******** loginUser Function ********");
   const { email, password } = req.body;
@@ -91,14 +102,22 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
-  // console.log("User details", email, password);
+  console.log("User details", email, password);
 
   const user = await User.findOne({ email });
 
-  const jwtToken = generateJWTToken(req.user._id);
+  console.log("User : ", user);
+
+  const jwtToken = generateJWTToken(user._id);
+
+  console.log("JWT Token : ", jwtToken);
   const expiryDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
+  const checkPassword = await user.matchPassword(password);
+  console.log("Check Password : ", checkPassword);
+
   if (user && (await user.matchPassword(password))) {
+    console.log("Inside match password");
     res.cookie("accessToken", jwtToken, {
       httpOnly: true,
       expires: expiryDate,

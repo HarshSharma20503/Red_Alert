@@ -13,10 +13,10 @@ const Login = () => {
     console.log(formData);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = axios.post("/auth/login", formData);
+      const { data } = await axios.post("/api/auth/login", formData);
       console.log(data);
     } catch (err) {
       console.log(err);
