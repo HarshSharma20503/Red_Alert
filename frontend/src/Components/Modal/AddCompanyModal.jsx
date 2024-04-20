@@ -37,7 +37,7 @@ function AddCompanyModal() {
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="companySelect">
-              <Form.Label>Select Company</Form.Label>
+              <Form.Label className="my-3">Select Company</Form.Label>
               <Form.Control as="select" value={selectedCompany} onChange={handleSelectChange}>
                 <option value="">Select...</option>
                 {companies.map((company, index) => (
@@ -46,7 +46,7 @@ function AddCompanyModal() {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="stockUnitsInput">
-              <Form.Label>Stock Units</Form.Label>
+              <Form.Label className="my-3">Stock Units</Form.Label>
               <Form.Control type="number" value={stockUnits} onChange={handleStockUnitsChange} />
             </Form.Group>
             <Button variant="primary" type="submit" className="w-100 my-3">Add Stocks</Button>
