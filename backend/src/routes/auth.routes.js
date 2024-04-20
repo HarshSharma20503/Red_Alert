@@ -1,0 +1,14 @@
+import { Router } from "express";
+import {
+    registerUser,
+    loginUser,
+    confirmEmail,
+} from "../controllers/auth.controllers.js";
+
+const router = Router();
+
+router.route("/register").post(registerUser);
+router.route("/confirmEmail/:id").post(confirmEmail);
+router.route("/login").post(loginUser);
+
+export default router;
