@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, ListGroup } from 'react-bootstrap';
+import React from "react";
+import { Container, ListGroup } from "react-bootstrap";
 
 const SelectedStocksComponent = ({ selectedStocks }) => {
   return (
@@ -7,7 +7,7 @@ const SelectedStocksComponent = ({ selectedStocks }) => {
       <ListGroup>
         {selectedStocks.map((stock, index) => (
           <ListGroup.Item key={index}>
-            <strong>Company:</strong> {stock.company}, <strong>Stock Unit:</strong> {stock.stockUnit}
+            <strong>Company:</strong> {stock.name}, <strong>Stock Unit:</strong> {stock.quantity}
           </ListGroup.Item>
         ))}
       </ListGroup>

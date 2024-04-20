@@ -14,6 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendConfirmationMail = async (to, id) => {
+  console.log("************* Inside SendConfirmationMail *************");
   const mailOptions = {
     from: process.env.EMAIL_ID,
     to: [to],

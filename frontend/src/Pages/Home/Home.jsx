@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Home = () => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    companies: [],
+  });
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -28,7 +32,7 @@ const Home = () => {
       <h3 className="row text-white mx-2">Company List</h3>
 
       <div className="row mx-2">
-        {userInfo.companies.length === 0 ? (
+        {userInfo?.companies?.length === 0 ? (
           <h4 className="text-info text-center fs-4">Add Some Companies Stock to view</h4>
         ) : (
           <SelectedStocksComponent selectedStocks={userInfo.companies} />

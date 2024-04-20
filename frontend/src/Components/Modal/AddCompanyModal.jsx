@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import Select from "react-select";
-import Companies from "../../Data/companies.json"
+import Companies from "../../Data/companies.json";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function AddCompanyModal() {
   const [showModal, setShowModal] = useState(false);
@@ -17,13 +19,23 @@ function AddCompanyModal() {
 
   const handleStockUnitsChange = (e) => setStockUnits(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       company: selectedCompany,
       stockUnits: stockUnits,
     };
     console.log(data);
+
+    try {
+      const response = await axios.post("/api/user/addCompany", data);
+      toast.success("Company Added Successfully");
+      // console.log(response);
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data?.message || "Something went wrong");
+    }
+
     handleCloseModal();
   };
 
