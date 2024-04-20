@@ -17,10 +17,17 @@ Red Alert is a notification system designed to keep users informed about critica
 **AI Analysis:** Red Alert's AI algorithms continuously monitor news sources and analyze articles to identify those relevant to the user's portfolio.
 **Notification Delivery:** When significant news is detected, Red Alert sends a notification to the user's preferred device, ensuring timely access to important information.
 
-
 ## Why Red Alert?
 
 **Save Time:** No need to constantly monitor multiple news sources for updates.
 **Stay Informed:** Receive timely notifications about critical news affecting your investments.
 **Personalized Experience:** Tailored notifications ensure relevance to your specific stock portfolio.
 **Efficiency:** Focus on essential updates without getting overwhelmed by irrelevant information.
+
+## How to use the Project
+
+-   Clone the project
+-   Install all the dependencies in frontend and backend folder using npm install
+-   Create your .env files in both frontend and backend
+-   Inside your .env write the jwt secret and also the mongodb atlas url
+-   run the frontend and backend using npm run dev
