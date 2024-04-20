@@ -1,16 +1,39 @@
 import React from "react";
-import { Container, ListGroup } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
+import { MdOutlineEdit, MdDelete } from "react-icons/md";
+import UpdateStockModal from "../Modal/UpdateStockModal";
 
-const SelectedStocksComponent = ({ selectedStocks }) => {
+const SelectedStocksComponent = ({ userInfo, setUserInfo }) => {
   return (
     <Container>
-      <ListGroup>
-        {selectedStocks.map((stock, index) => (
-          <ListGroup.Item key={index}>
-            <strong>Company:</strong> {stock.name}, <strong>Stock Unit:</strong> {stock.quantity}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      <Table responsive="sm" striped bordered hover size="sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Company Name</th>
+            <th>Number of Stocks</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {userInfo?.companies?.map((stock, index) => {
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{stock.name}</td>
+                <td>{stock.quantity}</td>
+                <td className="d-flex">
+                  <UpdateStockModal stock={stock} setUserInfo={setUserInfo} />
+                  <br></br>
+                  <button className="btn btn-danger me-2">
+                    <MdDelete stock={stock} setUserInfo={setUserInfo} />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </Container>
   );
 };

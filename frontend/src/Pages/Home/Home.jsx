@@ -33,16 +33,16 @@ const Home = () => {
       <div className="row text-center py-3">
         <h2 className="text-white">{userInfo.name}</h2>
       </div>
-      <h3 className="row text-white mx-2">Company List</h3>
+      <h3 className="row text-white mx-3">Company List</h3>
 
       <div className="row mx-2">
         {userInfo?.companies?.length === 0 ? (
           <h4 className="text-info text-center fs-4">Add Some Companies Stock to view</h4>
         ) : (
-          <SelectedStocksComponent selectedStocks={userInfo.companies} />
+          <SelectedStocksComponent setUserInfo={setUserInfo} userInfo={userInfo} />
         )}
       </div>
-      <div className="row my-3 mx-2">
+      <div className="row my-3 mx-3">
         <AddCompanyModal setUserInfo={setUserInfo} />
       </div>
     </div>
