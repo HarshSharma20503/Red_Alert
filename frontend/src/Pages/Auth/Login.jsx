@@ -14,7 +14,6 @@ const Login = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   const handleSubmit = async (event) => {
@@ -22,6 +21,7 @@ const Login = () => {
     try {
       const { data } = await axios.post("/api/auth/login", formData);
       // console.log(data);
+      localStorage.setItem("user", JSON.stringify(data.data));
       toast.success("Login Successfull");
       navigate("/");
     } catch (err) {
