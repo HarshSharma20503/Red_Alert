@@ -1,7 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,9 +21,14 @@ const Login = () => {
     event.preventDefault();
     try {
       const { data } = await axios.post("/api/auth/login", formData);
-      console.log(data);
+      // console.log(data);
+      toast.success("Login Successfull");
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      if (err.response.data.message) {
+        toast.error(err.response.data.message);
+      }
     }
   };
 

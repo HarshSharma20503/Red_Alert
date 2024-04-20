@@ -21,14 +21,18 @@ const userSchema = new Schema(
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
+  console.log("Entered Password:", enteredPassword);
+  const temp = await bcrypt.hash(enteredPassword, 12);
+  console.log("Temp: ", temp);
+  console.log("Password: ", this.password);
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  }
-  this.password = await bcrypt.hash(this.password, 12);
-});
+// userSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) {
+//     next();
+//   }
+//   this.password = await bcrypt.hash(this.password, 12);
+// });
 
 export const User = mongoose.model("User", userSchema);

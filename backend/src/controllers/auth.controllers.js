@@ -76,11 +76,15 @@ const confirmEmail = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
+  // console.log("Unverified User Password", unverifiedUser.password);
+
   const user = await User.create({
     name: unverifiedUser.name,
     email: unverifiedUser.email,
     password: unverifiedUser.password,
   });
+
+  // console.log("Verified User", user.password);
 
   if (!user) {
     throw new ApiError(500, "Failed to create User");
