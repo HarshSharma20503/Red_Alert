@@ -30,7 +30,7 @@ function AddCompanyModal() {
         Add Company Stocks
       </Button>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title> Add Company Stocks</Modal.Title>
         </Modal.Header>
