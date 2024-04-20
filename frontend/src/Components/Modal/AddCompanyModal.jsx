@@ -5,7 +5,7 @@ import Companies from "../../Data/companies.json";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function AddCompanyModal({ updateUser, user }) {
+function AddCompanyModal({ setUserInfo }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState("selected");
   const [stockUnits, setStockUnits] = useState(0);
@@ -30,7 +30,9 @@ function AddCompanyModal({ updateUser, user }) {
     try {
       const response = await axios.post("/api/user/addCompany", data);
       toast.success("Company Added Successfully");
-      window.location.reload();
+      setUserInfo((prev) => {
+        return { ...prev, companies: [...prev.companies, response.data.data] };
+      });
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Something went wrong");

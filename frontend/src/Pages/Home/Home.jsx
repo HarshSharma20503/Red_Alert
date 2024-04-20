@@ -39,11 +39,11 @@ const Home = () => {
         {userInfo?.companies?.length === 0 ? (
           <h4 className="text-info text-center fs-4">Add Some Companies Stock to view</h4>
         ) : (
-          <SelectedStocksComponent selectedStocks={userInfo.companies} updateUser={updateUser} user={userInfo} />
+          <SelectedStocksComponent selectedStocks={userInfo.companies} />
         )}
       </div>
       <div className="row my-3 mx-2">
-        <AddCompanyModal />
+        <AddCompanyModal setUserInfo={setUserInfo} />
       </div>
     </div>
   );
