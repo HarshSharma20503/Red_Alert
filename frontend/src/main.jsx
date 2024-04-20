@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import axios from "axios";
 import App from "./App.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,7 +17,7 @@ if (import.meta.env.DEV) {
 
 axios.defaults.withCredentials = true;
 
-axios.defaults.ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
         <App />
     </Router>
