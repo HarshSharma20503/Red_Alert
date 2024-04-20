@@ -1,5 +1,7 @@
+import AddCompanyModal from "../../Components/Modal/AddCompanyModal";
+
 const Home = () => {
-    return <div>Home</div>;
+  return <AddCompanyModal />;
 };
 
 export default Home;
