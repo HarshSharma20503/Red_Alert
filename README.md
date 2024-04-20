@@ -34,7 +34,7 @@ Red Alert is a notification system designed to keep users informed about critica
 
 ## Contributors of the Project
 
--   [https://github.com/HarshSharma20503](Harsh Sharma)
--   [https://github.com/skywalker290](Ayush Gupta)
--   [https://github.com/NandiniAgrawal15](Nandini Agrawal)
--   [https://github.com/SakshamSahgal](Saksham Sahgal)
+-   [Harsh Sharma](https://github.com/HarshSharma20503)
+-   [Ayush Gupta](https://github.com/skywalker290)
+-   [Nandini Agrawal](https://github.com/NandiniAgrawal15)
+-   [Saksham Sahgal](https://github.com/SakshamSahgal)
