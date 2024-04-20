@@ -1,6 +1,17 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
+const companySchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    default: 1, // Default quantity is 1
+  },
+});
+
 const userSchema = new Schema(
   {
     name: {
@@ -16,6 +27,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    companies: [companySchema],
   },
   { timestamps: true }
 );
@@ -28,11 +40,11 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     next();
-//   }
-//   this.password = await bcrypt.hash(this.password, 12);
-// });
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password") || this.isNew) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 12);
+});
 
 export const User = mongoose.model("User", userSchema);
