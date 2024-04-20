@@ -10,6 +10,10 @@ const Home = () => {
     companies: [],
   });
 
+  const updateUser = (newUser) => {
+    setUserInfo(newUser);
+  };
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -35,7 +39,7 @@ const Home = () => {
         {userInfo?.companies?.length === 0 ? (
           <h4 className="text-info text-center fs-4">Add Some Companies Stock to view</h4>
         ) : (
-          <SelectedStocksComponent selectedStocks={userInfo.companies} />
+          <SelectedStocksComponent selectedStocks={userInfo.companies} updateUser={updateUser} user={userInfo} />
         )}
       </div>
       <div className="row my-3 mx-2">
