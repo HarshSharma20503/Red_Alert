@@ -1,28 +1,37 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import Select from "react-select";
+import Companies from "../../Data/companies.json"
 
 function AddCompanyModal() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedCompany, setSelectedCompany] = useState("selected");
   const [stockUnits, setStockUnits] = useState(0);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-  const handleSelectChange = (e) => setSelectedCompany(e.target.value);
+
+  const handleSelectChange = (selectedOption) => {
+    setSelectedCompany(selectedOption.value);
+  };
+
   const handleStockUnitsChange = (e) => setStockUnits(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-        company: selectedCompany,
-        stockUnits: stockUnits
+      company: selectedCompany,
+      stockUnits: stockUnits,
     };
     console.log(data);
     handleCloseModal();
   };
 
-
-  const companies = ["Company A", "Company B", "Company C"];
+  const companies = Companies;
+  const options = companies.map((company, index) => ({
+    value: company, //
+    label: company, //search
+  }));
 
   return (
     <>
@@ -38,22 +47,27 @@ function AddCompanyModal() {
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="companySelect">
               <Form.Label className="my-3">Select Company</Form.Label>
-              <Form.Control as="select" value={selectedCompany} onChange={handleSelectChange}>
-                <option value="">Select...</option>
-                {companies.map((company, index) => (
-                  <option key={index} value={company}>{company}</option>
-                ))}
-              </Form.Control>
+              <Select
+                value={{ value: selectedCompany, label: selectedCompany }}
+                onChange={handleSelectChange}
+                options={options}
+                placeholder="Select..."
+                isClearable
+              />
             </Form.Group>
             <Form.Group controlId="stockUnitsInput">
               <Form.Label className="my-3">Stock Units</Form.Label>
               <Form.Control type="number" value={stockUnits} onChange={handleStockUnitsChange} />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100 my-3">Add Stocks</Button>
+            <Button variant="primary" type="submit" className="w-100 my-3">
+              Add Stocks
+            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
