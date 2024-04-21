@@ -3,7 +3,7 @@ import { Container, Table } from "react-bootstrap";
 import UpdateStockModal from "../Modal/UpdateStockModal";
 import DeleteCompanyModal from "../Modal/DeleteCompanyModal";
 
-const SelectedStocksComponent = (props) => {
+const Notifications = (props) => {
   const { userInfo, setUserInfo } = props;
   return (
     <Container>
@@ -12,21 +12,21 @@ const SelectedStocksComponent = (props) => {
           <tr>
             <th>#</th>
             <th>Company Name</th>
-            <th>Number of Stocks</th>
-            <th>Actions</th>
+            <th>Priority Grade</th>
+            <th>News Article</th>
           </tr>
         </thead>
         <tbody>
-          {userInfo?.companies?.map((stock, index) => {
+          {userInfo?.notifications?.map((news, index) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{stock.name}</td>
-                <td>{stock.quantity}</td>
+                <td>{news.name}</td>
+                <td>{news.priorityLevel}</td>
                 <td className="d-flex">
-                  <UpdateStockModal stock={stock} setUserInfo={setUserInfo} />
-                  <br></br>
-                  <DeleteCompanyModal stock={stock} userInfo={userInfo} setUserInfo={setUserInfo} />
+                  <a href={news.url} target="_blank">
+                    Link
+                  </a>
                 </td>
               </tr>
             );
@@ -37,4 +37,4 @@ const SelectedStocksComponent = (props) => {
   );
 };
 
-export default SelectedStocksComponent;
+export default Notifications;
