@@ -17,6 +17,10 @@ function UpdateStockModal(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (stockUnits == 0) {
+      toast.error("Enter Some Stock Units or Delete the stock");
+      return;
+    }
     const data = {
       company: stock.name,
       stockUnits: stockUnits,

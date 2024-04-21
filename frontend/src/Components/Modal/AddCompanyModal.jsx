@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 function AddCompanyModal({ setUserInfo }) {
   const [showModal, setShowModal] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState("selected");
+  const [selectedCompany, setSelectedCompany] = useState("Select Company");
   const [stockUnits, setStockUnits] = useState(0);
 
   const handleCloseModal = () => setShowModal(false);
@@ -21,6 +21,14 @@ function AddCompanyModal({ setUserInfo }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (selectedCompany === "Select Company") {
+      toast.error("Select Some Company");
+      return;
+    }
+    if (stockUnits == 0) {
+      toast.error("Enter Some Stock Units");
+      return;
+    }
     const data = {
       company: selectedCompany,
       stockUnits: stockUnits,
@@ -32,6 +40,8 @@ function AddCompanyModal({ setUserInfo }) {
       toast.success("Company Added Successfully");
 
       setUserInfo(response.data.data);
+      setStockUnits(0);
+      setSelectedCompany("Select Company");
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Something went wrong");
