@@ -10,15 +10,11 @@ const Home = () => {
     companies: [],
   });
 
-  const updateUser = (newUser) => {
-    setUserInfo(newUser);
-  };
-
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const res = await axios.get("/api/user");
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setUserInfo(res.data.data);
       } catch (err) {
         console.log(err);
@@ -40,6 +36,7 @@ const Home = () => {
           <h4 className="text-info text-center fs-4">Add Some Companies Stock to view</h4>
         ) : (
           <SelectedStocksComponent setUserInfo={setUserInfo} userInfo={userInfo} />
+          // <div className="">Hello</div>
         )}
       </div>
       <div className="row my-3 mx-3">

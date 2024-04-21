@@ -71,16 +71,18 @@ const updateCompanyStock = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  console.log("User: ", user);
-  console.log("Company: ", company);
+  // console.log("User: ", user);
+  // console.log("Company: ", company);
 
   const index = user.companies.findIndex((item) => item.name === company);
   if (index === -1) {
     throw new ApiError(404, "Company not found");
   }
-  user.companies[index].stockUnits = stockUnits;
+  user.companies[index].quantity = stockUnits;
+  // console.log("Index :", index);
+  // console.log("user:", user);
   await user.save();
-  console.log("User: ", user);
+  // console.log("User: ", user);
   res.status(200).json(new ApiResponse(200, user));
 });
 

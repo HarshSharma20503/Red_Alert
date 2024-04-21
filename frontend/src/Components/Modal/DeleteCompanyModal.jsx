@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import Companies from "../../Data/companies.json";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { MdOutlineEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
-function UpdateStockModal(props) {
+function DeleteCompanyModal(props) {
   const { stock, userInfo, setUserInfo, ...restProps } = props;
 
   const [showModal, setShowModal] = useState(false);
-  const [stockUnits, setStockUnits] = useState(stock.quantity);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-
-  const handleStockUnitsChange = (e) => setStockUnits(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,10 +23,11 @@ function UpdateStockModal(props) {
 
     try {
       const response = await axios.post("/api/user/updateCompanyStock", data);
-      // console.log(response.data.data);
+      console.log(response.data.data);
       toast.success("Company Added Successfully");
-
-      setUserInfo(response.data.data);
+      setUserInfo((prev) => {
+        return { ...prev, companies: [...prev.companies, response.data.data] };
+      });
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Something went wrong");
@@ -37,29 +36,22 @@ function UpdateStockModal(props) {
     handleCloseModal();
   };
 
+
   return (
     <>
-      <Button variant="primary mx-2" onClick={handleShowModal}>
-        <MdOutlineEdit />
+      <Button variant="danger mx-2" onClick={handleShowModal}>
+        <MdDelete />
       </Button>
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title> Update Company Stocks</Modal.Title>
+          <Modal.Title> Confirm Stock Deletion</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="companySelect">
-              <Form.Label className="my-3 fw-bold">Company Name</Form.Label>
-
-              <div className="">{stock.name}</div>
-            </Form.Group>
-            <Form.Group controlId="stockUnitsInput">
-              <Form.Label className="my-3 fw-bold">Stock Units</Form.Label>
-              <Form.Control type="number" value={stockUnits} onChange={handleStockUnitsChange} />
-            </Form.Group>
+            Confirm {stock.name} Stocks Deletion?
             <Button variant="primary" type="submit" className="w-100 my-3">
-              Update Stocks
+              Delete Stocks
             </Button>
           </Form>
         </Modal.Body>
@@ -73,4 +65,4 @@ function UpdateStockModal(props) {
   );
 }
 
-export default UpdateStockModal;
+export default DeleteCompanyModal;

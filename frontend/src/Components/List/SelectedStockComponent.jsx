@@ -2,8 +2,10 @@ import React from "react";
 import { Container, Table } from "react-bootstrap";
 import { MdOutlineEdit, MdDelete } from "react-icons/md";
 import UpdateStockModal from "../Modal/UpdateStockModal";
+import DeleteCompanyModal from "../Modal/DeleteCompanyModal";
 
-const SelectedStocksComponent = ({ userInfo, setUserInfo }) => {
+const SelectedStocksComponent = (props) => {
+  const { userInfo, setUserInfo } = props;
   return (
     <Container>
       <Table responsive="sm" striped bordered hover size="sm">
@@ -25,9 +27,7 @@ const SelectedStocksComponent = ({ userInfo, setUserInfo }) => {
                 <td className="d-flex">
                   <UpdateStockModal stock={stock} setUserInfo={setUserInfo} />
                   <br></br>
-                  <button className="btn btn-danger me-2">
-                    <MdDelete stock={stock} setUserInfo={setUserInfo} />
-                  </button>
+                  <DeleteCompanyModal stock={stock} userInfo={userInfo} setUserInfo={setUserInfo} />
                 </td>
               </tr>
             );
