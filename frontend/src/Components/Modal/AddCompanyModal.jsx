@@ -30,9 +30,8 @@ function AddCompanyModal({ setUserInfo }) {
     try {
       const response = await axios.post("/api/user/addCompany", data);
       toast.success("Company Added Successfully");
-      setUserInfo((prev) => {
-        return { ...prev, companies: [...prev.companies, response.data.data] };
-      });
+
+      setUserInfo(response.data.data);
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Something went wrong");

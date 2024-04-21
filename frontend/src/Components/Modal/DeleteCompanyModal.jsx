@@ -17,17 +17,14 @@ function DeleteCompanyModal(props) {
     e.preventDefault();
     const data = {
       company: stock.name,
-      stockUnits: stockUnits,
     };
     // console.log(data);
 
     try {
-      const response = await axios.post("/api/user/updateCompanyStock", data);
+      const response = await axios.post("/api/user/deleteCompanyStock", data);
       console.log(response.data.data);
-      toast.success("Company Added Successfully");
-      setUserInfo((prev) => {
-        return { ...prev, companies: [...prev.companies, response.data.data] };
-      });
+      toast.success("Company Deleted Successfully");
+      setUserInfo(response.data.data);
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data?.message || "Something went wrong");
@@ -35,7 +32,6 @@ function DeleteCompanyModal(props) {
 
     handleCloseModal();
   };
-
 
   return (
     <>
