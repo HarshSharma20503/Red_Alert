@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div className="container ">
       <div className="row text-center py-3">
-        <h2 className="text-white">{userInfo.name}</h2>
+        <h2 className="text-white">{userInfo.name} Portfolio</h2>
       </div>
       <h3 className="row text-white mx-3">Company List</h3>
 
@@ -36,7 +36,6 @@ const Home = () => {
           <h4 className="text-info text-center fs-4">Add Some Companies Stock to view</h4>
         ) : (
           <SelectedStocksComponent setUserInfo={setUserInfo} userInfo={userInfo} />
-          // <div className="">Hello</div>
         )}
       </div>
       <div className="row my-3 mx-3">
