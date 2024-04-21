@@ -36,7 +36,7 @@ Red Alert is a notification system designed to keep users informed about critica
 - **Express** - To build the REST APIs with protected routes using JWT and verification mail to avoid fake accounts.<br>
 - **Node** - For overrall javascript run time enviornment, used on both frontend and backend<br>
 - **MongoDB** - Nosql database to store user information<br>
-- **AI/Ml** - 
+- **AI/Ml** - debert-v3-base and distilBert-base-uncased(for tokenization for news articles), bloom560m(for multilabel classification of news to get priority).  
 
 ## How to use the Project
 
