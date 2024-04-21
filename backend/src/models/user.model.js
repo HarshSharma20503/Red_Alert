@@ -12,6 +12,21 @@ const companySchema = new Schema({
   },
 });
 
+const notificationSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  priorityLevel: {
+    type: Number,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+});
+
 const userSchema = new Schema(
   {
     name: {
@@ -28,6 +43,7 @@ const userSchema = new Schema(
       required: true,
     },
     companies: [companySchema],
+    notifications: [notificationSchema],
   },
   { timestamps: true }
 );

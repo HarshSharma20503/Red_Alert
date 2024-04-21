@@ -111,6 +111,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   console.log("User : ", user);
+  if (!user) throw new ApiError(400, "User not found");
 
   const jwtToken = generateJWTToken(user._id);
 
