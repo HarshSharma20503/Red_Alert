@@ -1,29 +1,33 @@
 import fs from 'fs';
 import axios from 'axios';
 
+import OpenAI from 'openai';
+const client = new OpenAI({ apiKey: process.env.GPT_API_KEY });
+
 
 async function GetLatestNews() {
     console.log("Getting latest news");
     //fetch finance news using CNBC scrapped APIs
     const topNews = await GetTopNews();
-    // console.log(topNews);
+    console.log(topNews);
     //write the top news to a file
     await WriteToFile(topNews);
-
-    //if unique found get the complete article from the link
-    //update topnews
     //call nandini api (payload => title and descritpion) and get the companies
-
-    for (let i = 0; i < topNews.length; i++) {
-        const news = topNews[i];
-        const companies = await GetAffectedCompanyNamesAPI(news.title + " " + news.description);
-        console.log(companies);
-    }
-
+    const companies = await GetAffectedCompanyNamesAPI(topNews.title + " " + topNews.description);
+    console.log(companies);
     //for each company call the chatgpt api (payload => company name and the description with prompt) and get the summarised string
-    //for each company call ayush api (payload => send the summarised string) and get the priorityLevel
-    //log the company and the priority level   
+    
+    //iterate over the companies array and call the GPT API for each company
+    for (let i = 0; i < companies.length; i++) {
+        const GPTResponse = await GetGPTResponse(companies[i],topNews.title + " " + topNews.description);
+        console.log(GPTResponse);
+    }
 }
+
+
+//for each company call ayush api (payload => send the summarised string) and get the priorityLevel
+//log the company and the priority level   
+
 //getting top 5 news
 async function GetTopNews() {
     try {
@@ -40,9 +44,9 @@ async function GetTopNews() {
         });
         // console.log(newsArray);
         //get the top x news from the array
-        const topNews = newsArray.slice(0, 5);
+        const topNews = newsArray.slice(1, 2);
         // console.log(topNews);
-        return topNews;
+        return topNews[0];
     } catch (error) {
         console.log("Error in fetching news", error);
     }
@@ -67,12 +71,12 @@ async function GetAffectedCompanyNamesAPI(payload) {
         const companies = response.map((company) => company.word);
         // Getting unique company names using Set
         const uniqueCompanies = [...new Set(companies)];
-        return companies;
+        return uniqueCompanies;
     } catch (error) {
         console.log("Error in fetching companies", error);
     }
 }
-
+//function that sends a post request to the nandini api
 async function query(data) {
     const response = await fetch(
         "https://api-inference.huggingface.co/models/nbroad/deberta-v3-base-company-names",
@@ -84,6 +88,39 @@ async function query(data) {
     );
     const result = await response.json();
     return result;
+}
+
+async function GetGPTResponse(Company_name, userPrompt) {
+
+    const messages = [
+        {
+            role: 'system',
+            content: `You are a respectful, clear and honest assistent. Your answer is always one sentence. You will be attentive to details. Convert this aritcle with respect to this ${Company_name}, in 500 words.`
+        },
+        {
+            role: 'user',
+            content: userPrompt,
+        },
+    ];
+
+    const parameters = {
+        model: 'gpt-3.5-turbo',
+        messages: messages,
+        temperature: 0, // this parameter is used to control the randomness of the output
+        max_tokens: 500, // this parameter is used to control the length of the output to 500 tokens
+        top_p: 1, // this parameter is used to control the randomness of the output
+        frequency_penalty: 0,
+        presence_penalty: 0,
+    };
+
+    try {
+        const response = await client.chat.completions.create(parameters);
+        // console.log(response);
+        return (response.choices[0].message.content);
+    } catch (e) {
+        console.log(e);
+        return ("Error Generating AI response. Please try again later.");
+    }
 }
 
 export { GetLatestNews };
